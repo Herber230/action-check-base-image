@@ -25,6 +25,5 @@ test('test runs', () => {
   const options: cp.ExecFileSyncOptions = {
     env: process.env
   };
-  // eslint-disable-next-line no-console
   console.log(cp.execFileSync(np, [ip], options).toString());
 });
