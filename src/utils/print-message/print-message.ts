@@ -4,5 +4,5 @@ export function printMessage(
   message: string,
   type: MessageType = 'info'
 ): void {
-  console.log(`[${type}]: ${message}`);
+  console.log(`[${type}] - ${message}`);
 }

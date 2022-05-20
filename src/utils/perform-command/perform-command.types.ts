@@ -1,6 +1,8 @@
 export type SingleCommandResult = {
   success: boolean;
   attempt: number;
+  stdout?: string;
+  stderr?: string;
 };
 
 export type CommandChainContext = {
@@ -13,6 +15,7 @@ export type Command = {
     stdout?: string | undefined;
     stderr?: string | undefined;
   }>;
+  skipStderr?: (stderr: string) => boolean;
 };
 
 export type CommandOptions = {

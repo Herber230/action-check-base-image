@@ -17,12 +17,19 @@ function singleCommandAttempt(
 
   return command
     .executor()
-    .then(context => {
-      const success = !context.stderr;
-      context.stdout && printMessage(context.stdout);
-      context.stderr && printMessage(context.stderr, 'error');
+    .then(result => {
+      const success =
+        !result.stderr ||
+        !!(command.skipStderr && command.skipStderr(result.stderr));
 
-      return {success, attempt};
+      console.log('[>] success: ', success);
+
+      console.log('[>] stdout');
+      result.stdout && printMessage(result.stdout);
+      console.log('[>] stderr');
+      result.stderr && printMessage(result.stderr, !success ? 'error' : 'info');
+
+      return {success, attempt, stderr: result.stderr, stdout: result.stdout};
     })
     .catch(error => {
       printMessage(
