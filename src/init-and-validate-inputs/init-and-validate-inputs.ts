@@ -1,17 +1,11 @@
-import {getInput} from '@actions/core';
-
-import {initContext, printMessage} from '../utils';
+import {getInput} from '../config';
 import {ActionContext} from '../main.types';
+import {initContext, printMessage} from '../utils';
 
 export function initAndValidateInputs(): Promise<ActionContext> {
-  // const imageName = getInput('image-name') ?? 'herber230/test-image';
-  // const dockerFile = getInput('docker-file') ?? 'testcicd/Dockerfile';
-  // const hashSource = getInput('hash-source') ?? 'package.json';
-
-  const imageName = 'herber230/test-image';
-  const dockerFile = 'testcicd/Dockerfile';
-  const hashSource = 'package.json';
-  const temp = '';
+  const imageName = getInput('image-name');
+  const dockerFile = getInput('docker-file');
+  const hashSource = getInput('hash-source');
 
   printMessage(`Image name: ${imageName}`, 'debug');
   printMessage(`Docker file: ${dockerFile}`, 'debug');

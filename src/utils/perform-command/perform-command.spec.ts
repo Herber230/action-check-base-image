@@ -1,4 +1,4 @@
-import {performSingleCommand, performChainCommand} from './perform-command';
+import {performChainCommand, performSingleCommand} from './perform-command';
 
 describe('tools:shared:perform-command', () => {
   test('Perform single command', async () => {

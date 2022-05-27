@@ -1,6 +1,6 @@
+import {execCommand} from '../config';
 import {ActionContext} from '../main.types';
 import {performSingleCommand, printMessage, syncContext} from '../utils';
-import {execCommand} from '../config';
 
 export function pullImage(
   context: ActionContext

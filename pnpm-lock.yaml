@@ -4,12 +4,14 @@ specifiers:
   '@actions/core': ^1.6.0
   '@actions/exec': ^1.1.1
   '@jest/globals': ^28.1.0
+  '@jest/types': ^28.1.0
   '@types/node': ^16.10.5
   '@typescript-eslint/parser': ^5.8.1
   '@vercel/ncc': ^0.31.1
   eslint: ^7.32.0
   eslint-plugin-github: ^4.3.2
   eslint-plugin-jest: ^25.3.2
+  eslint-plugin-simple-import-sort: ^7.0.0
   jest: ^27.2.5
   js-yaml: ^4.1.0
   prettier: 2.5.1
@@ -22,12 +24,14 @@ dependencies:
 
 devDependencies:
   '@jest/globals': 28.1.0
+  '@jest/types': 28.1.0
   '@types/node': 16.11.36
   '@typescript-eslint/parser': 5.24.0_e4zyhrvfnqudwdx5bevnvkluy4
   '@vercel/ncc': 0.31.1
   eslint: 7.32.0
   eslint-plugin-github: 4.3.6_e4zyhrvfnqudwdx5bevnvkluy4
   eslint-plugin-jest: 25.7.0_hay33uygmlwviqccrftymolfo4
+  eslint-plugin-simple-import-sort: 7.0.0_eslint@7.32.0
   jest: 27.5.1
   js-yaml: 4.1.0
   prettier: 2.5.1
@@ -1850,6 +1854,14 @@ packages:
       eslint-config-prettier: 8.5.0_eslint@7.32.0
       prettier: 2.5.1
       prettier-linter-helpers: 1.0.0
+    dev: true
+
+  /eslint-plugin-simple-import-sort/7.0.0_eslint@7.32.0:
+    resolution: {integrity: sha512-U3vEDB5zhYPNfxT5TYR7u01dboFZp+HNpnGhkDB2g/2E4wZ/g1Q9Ton8UwCLfRV9yAKyYqDh62oHOamvkFxsvw==}
+    peerDependencies:
+      eslint: '>=5.0.0'
+    dependencies:
+      eslint: 7.32.0
     dev: true
 
   /eslint-rule-documentation/1.0.23:

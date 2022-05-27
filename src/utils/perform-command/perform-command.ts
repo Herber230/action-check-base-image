@@ -1,12 +1,11 @@
 import {promisify} from 'util';
 
 import {printMessage} from '../print-message';
-
 import {
   Command,
-  SingleCommandResult,
   CommandChainContext,
-  CommandOptions
+  CommandOptions,
+  SingleCommandResult
 } from './perform-command.types';
 
 function singleCommandAttempt(

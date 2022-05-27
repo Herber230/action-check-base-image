@@ -1,5 +1,5 @@
-import {MessageType} from './print-message.types';
 import {output} from '../../config';
+import {MessageType} from './print-message.types';
 
 function getReferenceString(referenceValues?: {
   [key: string]: unknown;
@@ -16,7 +16,9 @@ function getReferenceString(referenceValues?: {
       }
       records.push(`${key} = ${value}`);
     }
-    referenceString = `\n | Reference values: \n | - ${records.join('\n | - ')}`;
+    referenceString = `\n | Reference values: \n | - ${records.join(
+      '\n | - '
+    )}`;
   }
   return referenceString;
 }
