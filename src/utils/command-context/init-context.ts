@@ -5,8 +5,7 @@ export function initContext<T extends CommandContext>(
 ): Promise<T> {
   const baseContext = {
     continue: true,
-    stdout: [],
-    stderr: []
+    errors: []
   };
 
   return Promise.resolve({

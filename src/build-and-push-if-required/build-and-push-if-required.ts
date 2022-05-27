@@ -1,25 +1,28 @@
 import {ActionContext} from '../main.types';
-import {performSingleCommand, syncContext} from '../utils';
+import {performSingleCommand, printMessage, syncContext} from '../utils';
 import {execCommand} from '../config';
 
 export function buildAndPushIfRequired(
   context: ActionContext
 ): Promise<ActionContext> | ActionContext {
+  printMessage(`Entering [buildAndPushIfRequired]`, 'debug', {context});
+
   if (!context.continue || context.imageExists) {
     return context;
   }
 
-  const imageName = `herber230/test-image:${context.packageHash}`;
-  const file = 'testcicd/Dockerfile';
+  const completeImageName = `${context.params.imageName}:${context.packageHash}`;
+  const dockerFile = context.params.dockerFile;
   let updatedContext = context;
 
   return performSingleCommand({
     name: 'Build image',
-    executor: () => execCommand(`docker build . -t ${imageName} -f ${file}`),
+    executor: () =>
+      execCommand(`docker build . -t ${completeImageName} -f ${dockerFile}`),
     skipStderr: () => true
   })
     .then(result => {
-      updatedContext = syncContext(updatedContext, result);
+      updatedContext = syncContext(context, {continue: result.success});
       return result;
     })
     .then(result => {
@@ -29,8 +32,8 @@ export function buildAndPushIfRequired(
 
       return performSingleCommand({
         name: 'Push image',
-        executor: () => execCommand(`docker push ${imageName}`)
+        executor: () => execCommand(`docker push ${completeImageName}`)
       });
     })
-    .then(result => syncContext(updatedContext, result));
+    .then(result => syncContext(updatedContext, {continue: result.success}));
 }

@@ -13,7 +13,7 @@ function singleCommandAttempt(
   command: Command,
   attempt: number
 ): Promise<SingleCommandResult> {
-  printMessage(`Executing command: ${command.name}`);
+  printMessage(`Executing command: ${command.name} ...`);
 
   return command
     .executor()
@@ -22,12 +22,9 @@ function singleCommandAttempt(
         !result.stderr ||
         !!(command.skipStderr && command.skipStderr(result.stderr));
 
-      console.log('[>] success: ', success);
-
-      console.log('[>] stdout');
-      result.stdout && printMessage(result.stdout);
-      console.log('[>] stderr');
-      result.stderr && printMessage(result.stderr, !success ? 'error' : 'info');
+      result.stdout && printMessage(`stdout: ${result.stdout}`, 'debug');
+      result.stderr &&
+        printMessage(`stderr: ${result.stderr}`, !success ? 'error' : 'debug');
 
       return {success, attempt, stderr: result.stderr, stdout: result.stdout};
     })
