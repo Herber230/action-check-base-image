@@ -1,19 +1,22 @@
-import * as core from '@actions/core';
-import {wait} from './wait';
+import {buildAndPushIfRequired} from './build-and-push-if-required';
+import {extractHash} from './extract-hash';
+import {initAndValidateInputs} from './init-and-validate-inputs';
+import {pullImage} from './pull-image';
+import {printMessage} from './utils';
 
-async function run(): Promise<void> {
-  try {
-    const ms: string = core.getInput('milliseconds');
-    core.debug(`Waiting ${ms} milliseconds ...`); // debug is only output if you set the secret `ACTIONS_STEP_DEBUG` to true
-
-    core.debug(new Date().toTimeString());
-    await wait(parseInt(ms, 10));
-    core.debug(new Date().toTimeString());
-
-    core.setOutput('time', new Date().toTimeString());
-  } catch (error) {
-    if (error instanceof Error) core.setFailed(error.message);
-  }
+function run(): void {
+  initAndValidateInputs()
+    .then(extractHash)
+    .then(pullImage)
+    .then(buildAndPushIfRequired)
+    .then(result => {
+      result.continue
+        ? printMessage('Action completed successfully')
+        : printMessage('Action incomplete', 'error');
+    })
+    .catch(exception => {
+      printMessage(`Exception on action perform: ${exception}`, 'error');
+    });
 }
 
 run();
