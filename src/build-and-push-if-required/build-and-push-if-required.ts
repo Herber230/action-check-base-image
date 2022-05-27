@@ -1,8 +1,6 @@
-import {exec} from 'child_process';
-import {promisify} from 'util';
-
 import {ActionContext} from '../main.types';
 import {performSingleCommand, syncContext} from '../utils';
+import {execCommand} from '../config';
 
 export function buildAndPushIfRequired(
   context: ActionContext
@@ -17,8 +15,7 @@ export function buildAndPushIfRequired(
 
   return performSingleCommand({
     name: 'Build image',
-    executor: () =>
-      promisify(exec)(`docker build . -t ${imageName} -f ${file}`),
+    executor: () => execCommand(`docker build . -t ${imageName} -f ${file}`),
     skipStderr: () => true
   })
     .then(result => {
@@ -26,14 +23,13 @@ export function buildAndPushIfRequired(
       return result;
     })
     .then(result => {
-      console.log('[>>>] result: ', result);
       if (!result.success) {
         return result;
       }
 
       return performSingleCommand({
         name: 'Push image',
-        executor: () => promisify(exec)(`docker push ${imageName}`)
+        executor: () => execCommand(`docker push ${imageName}`)
       });
     })
     .then(result => syncContext(updatedContext, result));

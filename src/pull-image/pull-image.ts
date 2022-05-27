@@ -1,8 +1,6 @@
-import {exec} from 'child_process';
-import {promisify} from 'util';
-
 import {ActionContext} from '../main.types';
 import {performSingleCommand, syncContext} from '../utils';
+import {execCommand} from '../config';
 
 export function pullImage(
   context: ActionContext
@@ -15,7 +13,7 @@ export function pullImage(
 
   return performSingleCommand({
     name: 'Pull image',
-    executor: () => promisify(exec)(`docker pull ${imageName}`)
+    executor: () => execCommand(`docker pull ${imageName}`)
   }).then(result => {
     const imageExists = result.success;
 

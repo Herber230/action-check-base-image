@@ -1,8 +1,9 @@
 import {MessageType} from './print-message.types';
+import {output} from '../../config';
 
 export function printMessage(
   message: string,
   type: MessageType = 'info'
 ): void {
-  console.log(`[${type}] - ${message}`);
+  output[type](`[${type}] - ${message}`);
 }

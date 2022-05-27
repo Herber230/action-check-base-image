@@ -1,1 +1,1 @@
-export type MessageType = 'info' | 'debug' | 'warn' | 'error';
+export type MessageType = 'info' | 'debug' | 'warning' | 'error';
