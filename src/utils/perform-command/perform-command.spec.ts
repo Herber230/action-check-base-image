@@ -1,4 +1,6 @@
-import {performChainCommand, performSingleCommand} from './perform-command';
+import {describe, expect, test} from '@jest/globals';
+
+import {performSingleCommand} from './perform-command';
 
 describe('tools:shared:perform-command', () => {
   test('Perform single command', async () => {
@@ -35,20 +37,5 @@ describe('tools:shared:perform-command', () => {
         }
       )
     ).toMatchObject({success: false, attempt: 5});
-  });
-
-  test('Perform chain command', async () => {
-    expect.assertions(1);
-
-    expect(
-      await performChainCommand({
-        name: 'Some test command',
-        executor: () => {
-          return Promise.resolve({
-            stdout: 'Some stdout'
-          });
-        }
-      })({success: true})
-    ).toMatchObject({success: true});
   });
 });

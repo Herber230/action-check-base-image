@@ -5,10 +5,6 @@ export type SingleCommandResult = {
   stderr?: string;
 };
 
-export type CommandChainContext = {
-  success: boolean;
-};
-
 export type Command = {
   name: string;
   executor: () => Promise<{

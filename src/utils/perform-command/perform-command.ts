@@ -3,7 +3,6 @@ import {promisify} from 'util';
 import {printMessage} from '../print-message';
 import {
   Command,
-  CommandChainContext,
   CommandOptions,
   SingleCommandResult
 } from './perform-command.types';
@@ -57,22 +56,4 @@ export function performSingleCommand(
     });
 
   return perform(0);
-}
-
-export function performChainCommand(
-  command: Command,
-  options?: CommandOptions
-): (
-  context: CommandChainContext
-) => CommandChainContext | Promise<CommandChainContext> {
-  return (context: CommandChainContext) => {
-    if (context.success) {
-      return performSingleCommand(command, options).then(result => {
-        // Attach more data to the context if required
-        return {...context, success: result.success};
-      });
-    } else {
-      return context;
-    }
-  };
 }
