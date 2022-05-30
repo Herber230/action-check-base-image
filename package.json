@@ -9,7 +9,7 @@
     "format": "prettier --write \"**/*.ts\"",
     "format-check": "prettier --check '**/*.ts'",
     "lint": "eslint src/**/*.ts",
-    "package": "ncc build --source-map --license licenses.txt",
+    "package": "ncc build --license licenses.txt",
     "test": "jest",
     "all": "npm run build && npm run format && npm run lint && npm run package && npm test",
     "start:dev": "pnpm run build && node lib/main.js"
@@ -39,7 +39,7 @@
     "eslint-plugin-github": "^4.3.2",
     "eslint-plugin-jest": "^25.3.2",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "jest": "^27.2.5",
+    "jest": "^28.1.0",
     "js-yaml": "^4.1.0",
     "prettier": "2.5.1",
     "ts-jest": "^27.1.2",
