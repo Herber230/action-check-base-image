@@ -1,0 +1,28 @@
+name: Self Run
+on:
+  push:
+    branches:
+      - feat/workflow-test
+
+jobs:
+  self-run-action:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Fetch code PR
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Check Base Image
+        id: check-base-image
+        uses: ./
+        with:
+          docker-file: testcicd/Dockerfile
+          image-name: herber230/test-image
+          hash-source: package.json
+
+      - run: echo ${{ steps.check-base-image.outputs.SUCCESS }}
+      - run: echo ${{ steps.check-base-image.outputs.COMPLETE_IMAGE_NAME }}
+

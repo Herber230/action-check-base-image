@@ -3,6 +3,8 @@ import {
   error,
   getInput as actionsGetInput,
   info,
+  setFailed as actionsSetFailed,
+  setOutput as actionsSetOutput,
   warning
 } from '@actions/core';
 import {getExecOutput} from '@actions/exec';
@@ -21,7 +23,8 @@ type ExecCommand = (
 ) => Promise<{stdout: string; stderr: string}>;
 
 type GetInput = (name: string) => string;
-
+type SetOutput = (name: string, value: string | boolean) => void;
+type SetFailed = (message: string | Error) => void;
 // This exports can be swap to perform tests locally. The important thing is to meet the type definition.
 
 //#region Normal Exports
@@ -31,10 +34,10 @@ export const output: Output = {
   warning,
   error
 };
-
 export const execCommand: ExecCommand = getExecOutput;
-
 export const getInput: GetInput = actionsGetInput;
+export const setOutput: SetOutput = actionsSetOutput;
+export const setFailed: SetFailed = actionsSetFailed;
 //#endregion Normal Exports
 
 //#region Local Tests Exports
