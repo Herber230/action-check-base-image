@@ -18,6 +18,6 @@ jobs:
       - name: check-base-image
         uses: ./
         with:
-          docker-file: cicd/Dockerfile
+          docker-file: testcicd/Dockerfile
           image-name: herber230/test-image
           hash-source: package.json

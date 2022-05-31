@@ -19,7 +19,7 @@ export function extractHash(
   }).then(result => {
     let packageHash: string | undefined = undefined;
     if (result.success && result.stdout) {
-      packageHash = result.stdout.replace(/\s/g, '').replace(/\*/g, '');
+      packageHash = result.stdout.split(' ')[0].trim();
       printMessage(`Package hash: ${packageHash}`, 'debug');
     }
 

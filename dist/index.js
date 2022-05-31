@@ -135,7 +135,7 @@ function extractHash(context) {
     }).then(result => {
         let packageHash = undefined;
         if (result.success && result.stdout) {
-            packageHash = result.stdout.replace(/\s/g, '').replace(/\*/g, '');
+            packageHash = result.stdout.split(' ')[0].trim();
             (0, utils_1.printMessage)(`Package hash: ${packageHash}`, 'debug');
         }
         return (0, utils_1.syncContext)(context, { packageHash, continue: result.success });
