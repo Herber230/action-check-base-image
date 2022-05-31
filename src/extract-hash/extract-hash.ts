@@ -15,7 +15,7 @@ export function extractHash(
 
   return performSingleCommand({
     name: 'Extract hash',
-    executor: () => execCommand(`cat ${context.params.hashSource} | md5sum`)
+    executor: () => execCommand(`md5sum ${context.params.hashSource}`)
   }).then(result => {
     let packageHash: string | undefined = undefined;
     if (result.success && result.stdout) {
