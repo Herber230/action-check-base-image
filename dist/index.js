@@ -373,6 +373,7 @@ exports.setActionOutputs = void 0;
 const config_1 = __nccwpck_require__(9352);
 const utils_1 = __nccwpck_require__(4507);
 function setActionOutputs(context) {
+    (0, utils_1.printMessage)(`Entering [setActionOutputs]`, 'debug', { context });
     if (context.continue) {
         context.packageHash && (0, config_1.setOutput)('HASH_RESULT', context.packageHash);
         context.completeImageName &&
