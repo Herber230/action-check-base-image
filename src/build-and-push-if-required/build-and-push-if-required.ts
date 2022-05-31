@@ -35,5 +35,7 @@ export function buildAndPushIfRequired(
         executor: () => execCommand(`docker push ${completeImageName}`)
       });
     })
-    .then(result => syncContext(updatedContext, {continue: result.success}));
+    .then(result =>
+      syncContext(updatedContext, {continue: result.success, completeImageName})
+    );
 }

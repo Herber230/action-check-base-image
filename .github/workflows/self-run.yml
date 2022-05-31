@@ -15,9 +15,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: check-base-image
+      - name: Check Base Image
+        id: check-base-image
         uses: ./
         with:
           docker-file: testcicd/Dockerfile
           image-name: herber230/test-image
           hash-source: package.json
+          
+      - run: |
+          echo "SUCCESS: ${{ steps.check-base-image.outputs.SUCCESS }}"
+          echo "COMPLETE_IMAGE_NAME: ${{ steps.check-base-image.outputs.COMPLETE_IMAGE_NAME }}"
+

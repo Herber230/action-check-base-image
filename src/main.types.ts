@@ -10,4 +10,5 @@ export interface ActionContext extends CommandContext {
   packageHash: string | undefined;
   imageExists: boolean;
   params: Params;
+  completeImageName: string | undefined;
 }
