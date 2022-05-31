@@ -22,8 +22,7 @@ jobs:
           docker-file: testcicd/Dockerfile
           image-name: herber230/test-image
           hash-source: package.json
-          
-      - run: |
-          echo "SUCCESS: ${{ steps.check-base-image.outputs.SUCCESS }}"
-          echo "COMPLETE_IMAGE_NAME: ${{ steps.check-base-image.outputs.COMPLETE_IMAGE_NAME }}"
+
+      - run: echo ${{ steps.check-base-image.outputs.SUCCESS }}
+      - run: echo ${{ steps.check-base-image.outputs.COMPLETE_IMAGE_NAME }}
 
