@@ -1,11 +1,16 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'check-base-image'
+description: 'Create base image with an auto-update behavior to use in workflows'
+author: 'Herber230'
 inputs:
-  milliseconds: # change this
+  image-name:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'image name including docker registry'
+  docker-file:
+    required: true
+    description: 'file that is going to be used to build the image'
+  hash-source:
+    required: true
+    description: 'file that is going to be used as hash source to determine when a new image is necessary'
 runs:
   using: 'node16'
   main: 'dist/index.js'
