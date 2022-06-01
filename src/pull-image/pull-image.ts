@@ -17,8 +17,10 @@ export function pullImage(
     name: 'Pull image',
     executor: () => execCommand(`docker pull ${completeImageName}`)
   }).then(result => {
-    const imageExists = result.success;
-
-    return syncContext(context, {imageExists, continue: true});
+    return syncContext(context, {
+      imageExists: result.success,
+      continue: !result.success,
+      completeImageName
+    });
   });
 }

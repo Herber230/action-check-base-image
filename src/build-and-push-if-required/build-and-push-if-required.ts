@@ -11,7 +11,7 @@ export function buildAndPushIfRequired(
     return context;
   }
 
-  const completeImageName = `${context.params.imageName}:${context.packageHash}`;
+  const completeImageName = context.completeImageName;
   const dockerFile = context.params.dockerFile;
   let updatedContext = context;
 
@@ -35,7 +35,5 @@ export function buildAndPushIfRequired(
         executor: () => execCommand(`docker push ${completeImageName}`)
       });
     })
-    .then(result =>
-      syncContext(updatedContext, {continue: result.success, completeImageName})
-    );
+    .then(result => syncContext(updatedContext, {continue: result.success}));
 }

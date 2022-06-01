@@ -15,7 +15,7 @@ function buildAndPushIfRequired(context) {
     if (!context.continue || context.imageExists) {
         return context;
     }
-    const completeImageName = `${context.params.imageName}:${context.packageHash}`;
+    const completeImageName = context.completeImageName;
     const dockerFile = context.params.dockerFile;
     let updatedContext = context;
     return (0, utils_1.performSingleCommand)({
@@ -36,7 +36,7 @@ function buildAndPushIfRequired(context) {
             executor: () => (0, config_1.execCommand)(`docker push ${completeImageName}`)
         });
     })
-        .then(result => (0, utils_1.syncContext)(updatedContext, { continue: result.success, completeImageName }));
+        .then(result => (0, utils_1.syncContext)(updatedContext, { continue: result.success }));
 }
 exports.buildAndPushIfRequired = buildAndPushIfRequired;
 
@@ -329,8 +329,11 @@ function pullImage(context) {
         name: 'Pull image',
         executor: () => (0, config_1.execCommand)(`docker pull ${completeImageName}`)
     }).then(result => {
-        const imageExists = result.success;
-        return (0, utils_1.syncContext)(context, { imageExists, continue: true });
+        return (0, utils_1.syncContext)(context, {
+            imageExists: result.success,
+            continue: !result.success,
+            completeImageName
+        });
     });
 }
 exports.pullImage = pullImage;
@@ -374,7 +377,7 @@ const config_1 = __nccwpck_require__(9352);
 const utils_1 = __nccwpck_require__(4507);
 function setActionOutputs(context) {
     (0, utils_1.printMessage)(`Entering [setActionOutputs]`, 'debug', { context });
-    if (context.continue) {
+    if (context.imageExists || context.continue) {
         context.packageHash && (0, config_1.setOutput)('HASH_RESULT', context.packageHash);
         context.completeImageName &&
             (0, config_1.setOutput)('COMPLETE_IMAGE_NAME', context.completeImageName);

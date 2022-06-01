@@ -5,7 +5,7 @@ import {printMessage} from '../utils';
 export function setActionOutputs(context: ActionContext): void {
   printMessage(`Entering [setActionOutputs]`, 'debug', {context});
 
-  if (context.continue) {
+  if (context.imageExists || context.continue) {
     context.packageHash && setOutput('HASH_RESULT', context.packageHash);
     context.completeImageName &&
       setOutput('COMPLETE_IMAGE_NAME', context.completeImageName);
