@@ -11,6 +11,9 @@ inputs:
   hash-source:
     required: true
     description: 'file that is going to be used as hash source to determine when a new image is necessary'
+  build-args:
+    required: false
+    description: 'arguments to attach to the docker build command'
 runs:
   using: 'node16'
   main: 'dist/index.js'
