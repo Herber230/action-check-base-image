@@ -4,6 +4,7 @@ export interface Params {
   imageName: string;
   dockerFile: string;
   hashSource: string;
+  buildArgs?: string;
 }
 
 export interface ActionContext extends CommandContext {
