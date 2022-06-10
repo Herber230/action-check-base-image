@@ -2,7 +2,7 @@ name: Self Run
 on:
   push:
     branches:
-      - feat/workflow-test
+      - self-run
 
 jobs:
   self-run-action:

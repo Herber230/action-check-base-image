@@ -13,12 +13,18 @@ export function buildAndPushIfRequired(
 
   const completeImageName = context.completeImageName;
   const dockerFile = context.params.dockerFile;
+  const buildArgs = context.params.buildArgs
+    ? ` ${context.params.buildArgs}`
+    : '';
+
   let updatedContext = context;
 
   return performSingleCommand({
     name: 'Build image',
     executor: () =>
-      execCommand(`docker build . -t ${completeImageName} -f ${dockerFile}`),
+      execCommand(
+        `docker build . -t ${completeImageName} -f ${dockerFile}${buildArgs}`
+      ),
     skipStderr: () => true
   })
     .then(result => {

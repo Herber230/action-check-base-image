@@ -17,10 +17,13 @@ function buildAndPushIfRequired(context) {
     }
     const completeImageName = context.completeImageName;
     const dockerFile = context.params.dockerFile;
+    const buildArgs = context.params.buildArgs
+        ? ` ${context.params.buildArgs}`
+        : '';
     let updatedContext = context;
     return (0, utils_1.performSingleCommand)({
         name: 'Build image',
-        executor: () => (0, config_1.execCommand)(`docker build . -t ${completeImageName} -f ${dockerFile}`),
+        executor: () => (0, config_1.execCommand)(`docker build . -t ${completeImageName} -f ${dockerFile}${buildArgs}`),
         skipStderr: () => true
     })
         .then(result => {
@@ -261,9 +264,11 @@ function initAndValidateInputs() {
     const imageName = (0, config_1.getInput)('image-name');
     const dockerFile = (0, config_1.getInput)('docker-file');
     const hashSource = (0, config_1.getInput)('hash-source');
+    const buildArgs = (0, config_1.getInput)('build-args');
     (0, utils_1.printMessage)(`Image name: ${imageName}`, 'debug');
     (0, utils_1.printMessage)(`Docker file: ${dockerFile}`, 'debug');
     (0, utils_1.printMessage)(`Hash source: ${hashSource}`, 'debug');
+    (0, utils_1.printMessage)(`Build args: ${buildArgs}`, 'debug');
     const validParams = [
         !imageName && (0, utils_1.printMessage)('image-name is required', 'error'),
         !dockerFile && (0, utils_1.printMessage)('docker-file is required', 'error'),
@@ -276,7 +281,8 @@ function initAndValidateInputs() {
         params: {
             imageName,
             dockerFile,
-            hashSource
+            hashSource,
+            buildArgs
         }
     });
 }

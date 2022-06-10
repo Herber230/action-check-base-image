@@ -6,10 +6,12 @@ export function initAndValidateInputs(): Promise<ActionContext> {
   const imageName = getInput('image-name');
   const dockerFile = getInput('docker-file');
   const hashSource = getInput('hash-source');
+  const buildArgs = getInput('build-args');
 
   printMessage(`Image name: ${imageName}`, 'debug');
   printMessage(`Docker file: ${dockerFile}`, 'debug');
   printMessage(`Hash source: ${hashSource}`, 'debug');
+  printMessage(`Build args: ${buildArgs}`, 'debug');
 
   const validParams = [
     !imageName && printMessage('image-name is required', 'error'),
@@ -25,7 +27,8 @@ export function initAndValidateInputs(): Promise<ActionContext> {
     params: {
       imageName,
       dockerFile,
-      hashSource
+      hashSource,
+      buildArgs
     }
   });
 }
